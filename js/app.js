@@ -99,12 +99,24 @@
         // Display results
         displayResults(results);
 
-        // Reset button
-        analyzeBtn.disabled = false;
-        analyzeBtn.textContent = 'Analyze Email';
+        // Show completion state on button
+        analyzeBtn.textContent = 'Done ✓';
+        analyzeBtn.style.background = '#10b981';
+        analyzeBtn.style.color = 'white';
+
+        // Show "Analysis Complete" notification
+        showAnalysisComplete(results.riskLevel);
 
         // Scroll to results
         resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Reset button after 2 seconds
+        setTimeout(() => {
+            analyzeBtn.disabled = false;
+            analyzeBtn.textContent = 'Analyze Email';
+            analyzeBtn.style.background = '';
+            analyzeBtn.style.color = '';
+        }, 2000);
     }
 
     /**
@@ -201,6 +213,77 @@
                 container.appendChild(matchesDiv);
             }
         }
+    }
+
+    /**
+     * Show analysis complete notification
+     */
+    function showAnalysisComplete(riskLevel) {
+        const notification = document.createElement('div');
+        
+        // Color based on risk level
+        let bgColor, icon;
+        if (riskLevel === 'HIGH') {
+            bgColor = '#dc2626';
+            icon = '🚨';
+        } else if (riskLevel === 'MEDIUM') {
+            bgColor = '#f59e0b';
+            icon = '⚠️';
+        } else if (riskLevel === 'LOW') {
+            bgColor = '#3b82f6';
+            icon = 'ℹ️';
+        } else {
+            bgColor = '#10b981';
+            icon = '✓';
+        }
+        
+        notification.innerHTML = `
+            <span style="font-size: 1.5rem; margin-right: 0.5rem;">${icon}</span>
+            <span>Analysis Complete</span>
+        `;
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: ${bgColor};
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.3s ease;
+        `;
+        
+        // Add animation keyframes if not already present
+        if (!document.getElementById('analysis-complete-styles')) {
+            const style = document.createElement('style');
+            style.id = 'analysis-complete-styles';
+            style.textContent = `
+                @keyframes slideDown {
+                    from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+                    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+                }
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        document.body.appendChild(notification);
+
+        // Remove after 2.5 seconds
+        setTimeout(() => {
+            notification.style.animation = 'fadeOut 0.3s ease forwards';
+            setTimeout(() => {
+                notification.remove();
+            }, 300);
+        }, 2500);
     }
 
     /**
