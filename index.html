@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Is This Email a Scam? - Scam Detection Tool</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>🛡️ Is This Email a Scam?</h1>
+            <p class="tagline">Paste suspicious email text and get an instant risk assessment</p>
+        </div>
+        <nav>
+            <a href="index.html" class="active">Checker</a>
+            <a href="library.html">Scam Library</a>
+            <a href="resources.html">Resources</a>
+        </nav>
+    </header>
+
+    <!-- Rotating Safety Banner -->
+    <div class="safety-banner" id="safety-banner">
+        <span class="banner-icon">💡</span>
+        <span class="banner-text" id="banner-text">Your bank will NEVER ask for your PIN</span>
+    </div>
+
+    <main>
+        <div class="checker-container">
+            <!-- How to Use Section (collapsible) -->
+            <details class="how-to-use" open>
+                <summary>📋 How to Use This Tool</summary>
+                <div class="instructions">
+                    <ol>
+                        <li><strong>Open</strong> the suspicious email</li>
+                        <li><strong>Click anywhere</strong> in the email body</li>
+                        <li><strong>Press Ctrl+A</strong> (select all) then <strong>Ctrl+C</strong> (copy)<br>
+                            <span class="tip">💡 Or drag your mouse to select the entire email</span></li>
+                        <li><strong>Paste</strong> it here (Ctrl+V or right-click → Paste)</li>
+                        <li><strong>Include the "From:" line</strong> if visible — it helps us check the sender!<br>
+                            <span class="tip">🔒 We don't store or send your email anywhere — everything stays on your computer</span></li>
+                    </ol>
+                    <p class="highlight-tip">💡 <strong>Tip:</strong> The more you paste, the better we can analyze it!</p>
+                </div>
+            </details>
+
+            <div class="input-section">
+                <label for="email-input">Paste the email text below:</label>
+                <textarea id="email-input" placeholder="Copy and paste the full email text here, including sender, subject, and body...
+
+Example:
+From: support@amaz0n-account.com
+Subject: Urgent: Your account will be suspended!
+
+Dear Customer,
+We have detected unusual activity on your account. Click here immediately to verify your identity..."></textarea>
+                <div class="button-group">
+                    <button id="analyze-btn" class="primary-btn">Analyze Email</button>
+                    <button id="clear-btn" class="secondary-btn">Clear</button>
+                </div>
+            </div>
+
+            <div class="results-section" id="results-section" style="display: none;">
+                <div class="risk-indicator" id="risk-indicator">
+                    <div class="risk-level" id="risk-level">MEDIUM RISK</div>
+                    <div class="risk-score" id="risk-score">Score: 45/100</div>
+                </div>
+
+                <div class="red-flags" id="red-flags">
+                    <h3>🚨 Red Flags Detected</h3>
+                    <ul id="flags-list"></ul>
+                </div>
+
+                <div class="matched-patterns" id="matched-patterns">
+                    <h3>🔍 Matched Patterns</h3>
+                    <div class="pattern-category" id="urgency-patterns"></div>
+                    <div class="pattern-category" id="link-patterns"></div>
+                    <div class="pattern-category" id="request-patterns"></div>
+                    <div class="pattern-category" id="spoofing-patterns"></div>
+                    <div class="pattern-category" id="threat-patterns"></div>
+                    <div class="pattern-category" id="emotional-patterns"></div>
+                </div>
+
+                <div class="disclaimer">
+                    <p><strong>⚠️ Disclaimer:</strong> This tool provides guidance, not guarantees. Scammers evolve constantly. When in doubt, contact the organization directly using official contact information. This is not financial or legal advice.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Free tool for educational purposes. Not affiliated with any government agency.</p>
+        <p><a href="resources.html">Learn how to protect yourself</a> | <a href="library.html">View scam examples</a></p>
+    </footer>
+
+    <script src="js/detector.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

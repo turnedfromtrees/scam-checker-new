@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scam Library - Is This Email a Scam?</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>📚 Scam Library</h1>
+            <p class="tagline">Learn to recognize common scam patterns</p>
+        </div>
+        <nav>
+            <a href="index.html">Checker</a>
+            <a href="library.html" class="active">Scam Library</a>
+            <a href="resources.html">Resources</a>
+        </nav>
+    </header>
+
+    <div class="safety-banner" id="safety-banner">
+        <span class="banner-icon">💡</span>
+        <span class="banner-text" id="banner-text">Your bank will NEVER ask for your PIN</span>
+    </div>
+
+    <main>
+        <div class="scam-examples">
+            <!-- Phishing -->
+            <article class="scam-card">
+                <h3>🎣 Phishing Emails</h3>
+                <p>Phishing emails impersonate legitimate companies to steal your login credentials, credit card numbers, or personal information.</p>
+                
+                <div class="example">
+From: security@bankofamerica-support.com
+Subject: Security Alert: Unusual Login Detected
+
+Dear Customer,
+
+We detected a login to your account from an unrecognized device. If this was not you, your account may be compromised.
+
+Click here immediately to verify your identity: https://bankofamerica-verify.com/login
+
+If you do not verify within 24 hours, your account will be suspended.
+
+Bank of America Security Team</div>
+
+                <ul class="warning-signs">
+                    <li>Suspicious domain (bankofamerica-support.com, not bankofamerica.com)</li>
+                    <li>Creates urgency with "24 hours" deadline</li>
+                    <li>Generic greeting "Dear Customer" instead of your name</li>
+                    <li>Link leads to fake site designed to steal credentials</li>
+                    <li>Threatens account suspension to force action</li>
+                </ul>
+            </article>
+
+            <!-- Tech Support Scams -->
+            <article class="scam-card">
+                <h3>💻 Tech Support Scams</h3>
+                <p>Tech support scams claim your computer is infected and demand payment for fake repairs or gain remote access to steal data.</p>
+                
+                <div class="example">
+From: Microsoft Security Team <support@microsoft-windows.net>
+Subject: CRITICAL: Your PC is infected with viruses!
+
+WARNING! Your Windows computer has been infected with dangerous malware!
+
+System Alert: Your personal files, passwords, and financial data are at risk!
+
+To remove the viruses, call our certified technicians NOW:
+TOLL-FREE: 1-800-XXX-XXXX
+
+Do not restart your computer. The infection may spread.
+
+You may need to provide remote access to complete the repair.
+
+Microsoft Windows Security Center</div>
+
+                <ul class="warning-signs">
+                    <li>Microsoft does NOT send unsolicited virus warnings</li>
+                    <li>Uses fear to pressure immediate action</li>
+                    <li>Asks for remote access to your computer</li>
+                    <li>Suspicious sender domain (microsoft-windows.net)</li>
+                    <li>Asks you to call a phone number (Microsoft doesn't do this)</li>
+                </ul>
+            </article>
+
+            <!-- Romance Scams -->
+            <article class="scam-card">
+                <h3>💔 Romance Scams</h3>
+                <p>Romance scammers build fake relationships to eventually ask for money, often claiming emergencies or travel expenses.</p>
+                
+                <div class="example">
+From: john.miller.engineer@gmail.com
+Subject: Thinking of you...
+
+My Dearest [Your Name],
+
+I know we haven't known each other long, but I feel such a strong connection with you. You are the most wonderful person I've ever met.
+
+I want to come visit you so badly! There's just one problem - I'm currently working on an oil rig in Nigeria and my contract payment was delayed by 3 weeks.
+
+Could you please loan me $3,000 for the plane ticket? I will pay you back as soon as I arrive, I promise.
+
+I love you and can't wait to hold you in my arms.
+
+Forever yours,
+John</div>
+
+                <ul class="warning-signs">
+                    <li>Quick declarations of love ("I love you" too soon)</li>
+                    <li>Claims to be working overseas (military, oil rig, contractor)</li>
+                    <li>Money request for travel or emergency</li>
+                    <li>Promises to pay back (but never does)</li>
+                    <li>Uses personal email, not a dating platform</li>
+                    <li>Story creates urgency and emotional connection</li>
+                </ul>
+            </article>
+
+            <!-- Prize Scams -->
+            <article class="scam-card">
+                <h3>🎁 Prize/Inheritance Scams</h3>
+                <p>Prize scams claim you've won money or inherited wealth, but require fees to "release" your winnings.</p>
+                
+                <div class="example">
+From: UNITED NATIONS LOTTERY <claims@unlottery.org>
+Subject: CONGRATULATIONS - You Have Won $2,500,000 USD!
+
+Dear Lucky Winner,
+
+CONGRATULATIONS! Your email was randomly selected in our international lottery program. You have won the grand prize of $2,500,000.00 USD!
+
+To claim your prize, you must pay a processing fee of $350 via Western Union to our claims agent in Nigeria.
+
+This is 100% legitimate and guaranteed. Many winners have already received their prizes!
+
+You must claim within 72 hours or your winnings will be forfeited.
+
+Please provide:
+- Full name
+- Address
+- Phone number
+- Bank account details for transfer
+
+United Nations Lottery Commission</div>
+
+                <ul class="warning-signs">
+                    <li>Prize for a lottery you never entered</li>
+                    <li>Requires upfront payment (processing fee, taxes, insurance)</li>
+                    <li>Payment via Western Union or gift cards</li>
+                    <li>Asks for bank account details</li>
+                    <li>Uses official-sounding organization names (UN doesn't run lotteries)</li>
+                    <li>Creates urgency with deadline</li>
+                </ul>
+            </article>
+
+            <!-- IRS/Government Scams -->
+            <article class="scam-card">
+                <h3>🏛️ IRS/Government Impersonation</h3>
+                <p>Scammers impersonate government agencies, threatening legal action, arrest, or deportation to extort money.</p>
+                
+                <div class="example">
+From: Internal Revenue Service <tax.owed@irs-gov.us>
+Subject: FINAL NOTICE: Legal Action Pending - Case #IRS-2024-85723
+
+FINAL NOTICE
+
+This is an official notification from the Internal Revenue Service.
+
+Our records indicate you owe $4,287.50 in back taxes. This amount is now overdue and subject to criminal prosecution.
+
+FAILURE TO PAY WILL RESULT IN:
+- Arrest warrant issued
+- Property liens
+- Bank account seizure
+- Passport revocation
+
+To resolve this matter, you must call 1-800-XXX-XXXX within 24 hours.
+
+Payment must be made via iTunes gift cards or wire transfer.
+
+If you do not pay, officers will arrive at your residence to arrest you.
+
+IRS Criminal Investigation Division</div>
+
+                <ul class="warning-signs">
+                    <li>IRS never contacts taxpayers via email about debts</li>
+                    <li>Government agencies don't threaten arrest by email</li>
+                    <li>Payment in gift cards is ALWAYS a scam</li>
+                    <li>Real IRS uses official mail, not email</li>
+                    <li>Creates extreme fear to prevent critical thinking</li>
+                    <li>Fake case numbers sound official but are meaningless</li>
+                </ul>
+            </article>
+
+            <!-- Grandparent Scam -->
+            <article class="scam-card">
+                <h3>👴 Grandparent Scams</h3>
+                <p>Scammers pose as family members (often grandchildren) in trouble, urgently needing money.</p>
+                
+                <div class="example">
+From: [Your Grandchild's Name] <random.email@ymail.com>
+Subject: Emergency - Please Help
+
+Hi Grandma/Grandpa,
+
+I'm so embarrassed to ask this, but I'm in real trouble. I was arrested for DUI in [Another State/Country] and I need bail money right away.
+
+Please don't tell Mom and Dad, they'll be so disappointed in me. I need $2,000 for bail and $500 for a lawyer.
+
+Can you send it by Western Union? The police said I can't leave until the bail is paid.
+
+I'll pay you back as soon as I get home, I promise.
+
+Please don't call my phone, the police took it. Just reply to this email.
+
+Love you,
+[Grandchild's Name]</div>
+
+                <ul class="warning-signs">
+                    <li>Creates extreme urgency and secrecy ("don't tell anyone")</li>
+                    <li>Unusual contact method (email instead of phone)</li>
+                    <li>Money requested via wire transfer</li>
+                    <li>Excuse for why you can't verify (police took phone)</li>
+                    <li>Preys on family bonds and emotions</li>
+                    <li>Always verify by calling the actual person directly</li>
+                </ul>
+            </article>
+
+            <!-- Investment Scams -->
+            <article class="scam-card">
+                <h3>📈 Investment Scams</h3>
+                <p>Investment scams promise high returns with little or no risk, often involving cryptocurrency or "exclusive" opportunities.</p>
+                
+                <div class="example">
+From: Crypto Investment Group <invest@cryptoprofits.net>
+Subject: Double Your Bitcoin in 7 Days - Guaranteed!
+
+Dear Investor,
+
+You have been selected for an EXCLUSIVE investment opportunity!
+
+Our proprietary cryptocurrency trading algorithm generates 200% returns WEEKLY. 
+
+Current investors are making:
+- $500 investment → $1,500 in one week
+- $1,000 investment → $3,000 in one week
+- $5,000 investment → $15,000 in one week
+
+This is a GUARANTEED investment backed by our trading bot.
+
+Limited spots available! Only 10 investors accepted this month.
+
+Send Bitcoin to our secure wallet and watch your profits grow!
+
+No risk, 100% guaranteed returns. You have nothing to lose!
+
+Click here to secure your spot: https://crypto-guaranteed-profits.io</div>
+
+                <ul class="warning-signs">
+                    <li>Promises guaranteed returns (impossible in legitimate investing)</li>
+                    <li>Claims "no risk" (all investments have risk)</li>
+                    <li>Unrealistically high returns in short time</li>
+                    <li>Pressure with "limited spots" or deadlines</li>
+                    <li>Asks for cryptocurrency (harder to trace/recover)</li>
+                    <li>Uses professional-sounding but fake company names</li>
+                </ul>
+            </article>
+
+            <!-- Job Scams -->
+            <article class="scam-card">
+                <h3>💼 Job/Employment Scams</h3>
+                <p>Job scams offer fake employment, often requiring payment for "equipment" or involving fake check schemes.</p>
+                
+                <div class="example">
+From: HR Department <hiring@techcorp-international.com>
+Subject: You've Been Selected - Data Entry Position - $45/hour
+
+Dear Applicant,
+
+Congratulations! Your resume has been selected for a Data Entry position at TechCorp International.
+
+Position: Remote Data Entry
+Pay: $45/hour
+Hours: Flexible, work from home
+Start: Immediate
+
+To get started, you will need to purchase our proprietary software package for $299. This will be fully reimbursed on your first paycheck.
+
+Please provide:
+- Full name and address
+- Bank routing number for direct deposit
+- Copy of your ID for HR records
+
+Send payment via CashApp to $TechCorpHiring to receive your software download link.
+
+We look forward to working with you!
+
+TechCorp International HR Team</div>
+
+                <ul class="warning-signs">
+                    <li>Offers high pay for simple work (too good to be true)</li>
+                    <li>Requires upfront payment for "equipment" or "training"</li>
+                    <li>Asks for bank details before you're hired</li>
+                    <li>No interview or minimal vetting process</li>
+                    <li>Requests payment via CashApp/Venmo/Wire (untraceable)</li>
+                    <li>Legitimate employers don't charge you to work</li>
+                </ul>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <p>Free tool for educational purposes. Not affiliated with any government agency.</p>
+        <p><a href="index.html">Check an email</a> | <a href="resources.html">Report a scam</a></p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
