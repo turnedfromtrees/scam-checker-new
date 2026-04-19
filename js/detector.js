@@ -27,7 +27,11 @@ const ScamDetector = (function() {
                 /\bwithin 24 hours?\b/i,
                 /\bbefore it'?s too late\b/i,
                 /\bdeadline\b/i,
-                /\bfailure to .*(?:result|lead|cause)\b/i
+                /\bfailure to .*(?:result|lead|cause)\b/i,
+                /\bexpired\b/i,
+                /\brenew(?:al)?\s+(?:today|now|immediately)\b/i,
+                /\byour\s+(?:subscription|protection|security)\s+(?:has\s+)?expired\b/i,
+                /\bsave\s+\d+%.*renew\b/i
             ]
         },
 
@@ -127,7 +131,13 @@ const ScamDetector = (function() {
                 /\bblock\b.*\baccount\b/i,
                 /\bpermanently\s+(?:suspend|close|delete)\b/i,
                 /\bterminate\s+(?:your\s+)?account\b/i,
-                /\bunauthorized\s+(?:access|transaction|activity)/i
+                /\bunauthorized\s+(?:access|transaction|activity)/i,
+                /\byour\s+(?:device|computer|system)\s+(?:is|is no longer)\s+(?:not|no longer)\s+receiving\b/i,
+                /\bprotection\s+(?:inactive|disabled|expired)\b/i,
+                /\bsecurity\s+(?:subscription|protection)\s+(?:has\s+)?expired\b/i,
+                /\bcritical\s+(?:security\s+)?updates?\b/i,
+                /\bdata\s+loss\b/i,
+                /\bmalware\s+(?:threats?|protection)\b/i
             ]
         },
 
@@ -193,7 +203,18 @@ const ScamDetector = (function() {
                 /\bChase\s+Bank\b/i,
                 /\bCitibank\b/i,
                 /\bCapital\s+One\b/i,
-                /\bInternal\s+Revenue\s+Service\b/i
+                /\bInternal\s+Revenue\s+Service\b/i,
+                /\bNorton\b/i,
+                /\bMcAfee\b/i,
+                /\bAvast\b/i,
+                /\bAvira\b/i,
+                /\bKaspersky\b/i,
+                /\bBitdefender\b/i,
+                /\bMalwarebytes\b/i,
+                /\bWebroot\b/i,
+                /\bESET\b/i,
+                /\bTrend\s+Micro\b/i,
+                /\bSophos\b/i
             ]
         }
     };
@@ -256,10 +277,15 @@ const ScamDetector = (function() {
         let score = 0;
         
         // List of legitimate brand domains
-        const legitimateDomains = ['amazon.com', 'apple.com', 'paypal.com', 'microsoft.com', 'google.com', 'facebook.com', 'netflix.com', 'irs.gov', 'chase.com', 'wellsfargo.com', 'bankofamerica.com', 'citibank.com', 'capitalone.com'];
+        const legitimateDomains = ['amazon.com', 'apple.com', 'paypal.com', 'microsoft.com', 'google.com', 'facebook.com', 'netflix.com', 'irs.gov', 'chase.com', 'wellsfargo.com', 'bankofamerica.com', 'citibank.com', 'capitalone.com', 'norton.com', 'mcafee.com', 'avast.com', 'avira.com', 'kaspersky.com', 'bitdefender.com', 'malwarebytes.com', 'webroot.com', 'eset.com', 'trendmicro.com', 'sophos.com'];
         
-        // Extract sender from From: line
-        const fromMatch = text.match(/From:\s*([^\n<]+)?<?([a-zA-Z0-9._%+-]+@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,}))>?/i);
+        // Extract sender from From: line (also try without 'From:' prefix for plain emails)
+        let fromMatch = text.match(/From:\s*([^\n<]+)?<?([a-zA-Z0-9._%+-]+@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,}))>?/i);
+        
+        // Also try to match bare email format: "Name <email>" or just "email"
+        if (!fromMatch) {
+            fromMatch = text.match(/([^\n<]+)?<?([a-zA-Z0-9._%+-]+@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,}))>?/i);
+        }
         
         let isLegitimateDomain = false;
         
@@ -311,6 +337,52 @@ const ScamDetector = (function() {
                             weight: 8
                         });
                         score += 8;
+                    }
+                }
+            }
+            
+            // Check for security software impersonation in display name
+            if (displayName) {
+                const securityBrands = ['norton', 'mcafee', 'avast', 'avira', 'kaspersky', 'bitdefender', 'malwarebytes', 'webroot', 'eset', 'trend micro', 'sophos'];
+                for (const brand of securityBrands) {
+                    if (displayName.toLowerCase().includes(brand)) {
+                        // Check if domain is legitimate for this brand
+                        const brandDomain = brand.replace(/\s+/g, '') + '.com';
+                        if (!senderDomain.includes(brandDomain)) {
+                            issues.push({
+                                match: displayName,
+                                reason: `Security software impersonation: "${brand}" in sender name but domain is not ${brandDomain}`,
+                                weight: 18
+                            });
+                            score += 18;
+                        }
+                    }
+                }
+            }
+            
+            // Check for gibberish/random domain detection
+            const domainParts = senderDomain.split('.')[0]; // Get main domain part (before TLD)
+            if (domainParts && !isLegitimateDomain) {
+                // Check if domain looks like random gibberish (10+ random chars)
+                const randomCharPattern = /^[a-z]{10,}$/i;
+                const hasRandomChars = randomCharPattern.test(domainParts);
+                
+                // Also check for high entropy (mix of random consonants/vowels)
+                const vowelCount = (domainParts.match(/[aeiou]/gi) || []).length;
+                const consonantCount = domainParts.length - vowelCount;
+                const ratio = vowelCount / domainParts.length;
+                
+                // Gibberish domains typically have unusual vowel ratios and long random strings
+                if ((hasRandomChars || (domainParts.length >= 10 && ratio > 0.2 && ratio < 0.5))) {
+                    // Additional check: consecutive consonants (unusual in real words)
+                    const consecutiveConsonants = domainParts.match(/[^aeiou]{4,}/gi);
+                    if (consecutiveConsonants && consecutiveConsonants.length > 0) {
+                        issues.push({
+                            match: senderDomain,
+                            reason: `Gibberish/random domain detected: "${domainParts}" appears to be randomly generated`,
+                            weight: 15
+                        });
+                        score += 15;
                     }
                 }
             }
