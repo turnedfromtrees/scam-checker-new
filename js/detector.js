@@ -152,9 +152,9 @@ const ScamDetector = (function() {
         },
 
         emotional: {
-            weight: 8,
+            weight: 12,
             name: "Emotional Manipulation",
-            maxScore: 35,
+            maxScore: 50,
             patterns: [
                 /\bcongratulations\b/i,
                 /\byou'?ve?\s*(?:won|been selected|been chosen)/i,
@@ -592,11 +592,11 @@ const ScamDetector = (function() {
         results.score = Math.min(totalScore, maxScore);
 
         // Determine risk level - adjusted thresholds for better detection
-        if (results.score >= 40) {
+        if (results.score >= 30) {
             results.riskLevel = 'HIGH';
-        } else if (results.score >= 20) {
+        } else if (results.score >= 15) {
             results.riskLevel = 'MEDIUM';
-        } else if (results.score >= 10) {
+        } else if (results.score >= 8) {
             results.riskLevel = 'LOW';
         } else {
             results.riskLevel = 'UNABLE TO DETERMINE';
