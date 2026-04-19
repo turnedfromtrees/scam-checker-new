@@ -36,23 +36,7 @@
 
         <main>
         <div class="checker-container">
-            <!-- How to Use Section (collapsible) -->
-            <details class="how-to-use" open>
-                <summary>📋 How to Use This Tool</summary>
-                <div class="instructions">
-                    <ol>
-                        <li><strong>Open</strong> the suspicious email</li>
-                        <li><strong>Click anywhere</strong> in the email body</li>
-                        <li><strong>Press Ctrl+A</strong> (select all) then <strong>Ctrl+C</strong> (copy)<br>
-                            <span class="tip">💡 Or drag your mouse to select the entire email</span></li>
-                        <li><strong>Paste</strong> it in the box below (Ctrl+V or right-click → Paste)</li>
-                        <li><strong>Include the "From:" line</strong> if visible — it helps us check the sender!<br>
-                            <span class="tip">🔒 We don't store or send your email anywhere — everything stays on your computer</span></li>
-                    </ol>
-                    <p class="highlight-tip">💡 <strong>Tip:</strong> The more you paste, the better we can analyze it!</p>
-                </div>
-            </details>
-
+            <!-- Main Tool First -->
             <div class="input-section">
                 <label for="email-input">Paste the email text below:</label>
                 <textarea id="email-input" placeholder="Copy and paste the full email text here, including sender, subject, and body...
@@ -68,6 +52,23 @@ We have detected unusual activity on your account. Click here immediately to ver
                     <button id="clear-btn" class="secondary-btn">Clear</button>
                 </div>
             </div>
+
+            <!-- How to Use Section (collapsible, below tool) -->
+            <details class="how-to-use">
+                <summary>📋 How to Use This Tool</summary>
+                <div class="instructions">
+                    <ol>
+                        <li><strong>Open</strong> the suspicious email</li>
+                        <li><strong>Click anywhere</strong> in the email body</li>
+                        <li><strong>Press Ctrl+A</strong> (select all) then <strong>Ctrl+C</strong> (copy)<br>
+                            <span class="tip">💡 Or drag your mouse to select the entire email</span></li>
+                        <li><strong>Paste</strong> it in the box above (Ctrl+V or right-click → Paste)</li>
+                        <li><strong>Include the "From:" line</strong> if visible — it helps us check the sender!<br>
+                            <span class="tip">🔒 We don't store or send your email anywhere — everything stays on your computer</span></li>
+                    </ol>
+                    <p class="highlight-tip">💡 <strong>Tip:</strong> The more you paste, the better we can analyze it!</p>
+                </div>
+            </details>
 
             <div class="results-section" id="results-section" style="display: none;">
                 <div class="risk-indicator" id="risk-indicator">
