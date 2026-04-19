@@ -31,7 +31,10 @@ const ScamDetector = (function() {
                 /\bexpired\b/i,
                 /\brenew(?:al)?\s+(?:today|now|immediately)\b/i,
                 /\byour\s+(?:subscription|protection|security)\s+(?:has\s+)?expired\b/i,
-                /\bsave\s+\d+%.*renew\b/i
+                /\bsave\s+\d+%.*renew\b/i,
+                /\baction required\b/i,
+                /\b\d+\s*(?:gb|tb|mb)\s+limit\b/i,
+                /\byou\s+have\s+reached\s+(?:your\s+)?(?:\d+\s+)?(?:gb|tb|mb)\s+limit\b/i
             ]
         },
 
@@ -129,6 +132,7 @@ const ScamDetector = (function() {
                 /\baccount\s*(?:is|will be)\s+(?:locked|frozen|restricted)/i,
                 /\bfreeze\s+(?:your\s+)?assets?\b/i,
                 /\bblock\b.*\baccount\b/i,
+                /\byour\s+account\s+has\s+been\s+blocked\b/i,
                 /\bpermanently\s+(?:suspend|close|delete)\b/i,
                 /\bterminate\s+(?:your\s+)?account\b/i,
                 /\bunauthorized\s+(?:access|transaction|activity)/i,
@@ -137,7 +141,13 @@ const ScamDetector = (function() {
                 /\bsecurity\s+(?:subscription|protection)\s+(?:has\s+)?expired\b/i,
                 /\bcritical\s+(?:security\s+)?updates?\b/i,
                 /\bdata\s+loss\b/i,
-                /\bmalware\s+(?:threats?|protection)\b/i
+                /\bmalware\s+(?:threats?|protection)\b/i,
+                /\bstorage\s+full\b/i,
+                /\bstorage\s+(?:limit|quota)\s+(?:reached|exceeded)/i,
+                /\byour\s+(?:photos|videos|files)\s+(?:will\s+be\s+)?(?:removed|deleted|lost)\b/i,
+                /\bemails\s+and\s+file\s+syncing\s+(?:are|is)\s+currently\s+paused\b/i,
+                /\bfile\s+syncing\s+(?:are|is)\s+(?:paused|stopped|blocked)/i,
+                /\bphotos\s+and\s+videos\s+will\s+be\s+removed\b/i
             ]
         },
 
@@ -167,7 +177,13 @@ const ScamDetector = (function() {
                 /\bwork\s+from\s+home\b/i,
                 /\bmake\s+money\s+(?:fast|quickly|online)\b/i,
                 /\bearn\s+\$\d+/i,
-                /\$\d+\s+(?:per\s+)?(?:hour|day|week)/i
+                /\$\d+\s+(?:per\s+)?(?:hour|day|week)/i,
+                /\bupgrade\s+to\s+\d+\s*(?:gb|tb|mb)\b/i,
+                /\bget\s+more\s+storage\b/i,
+                /\bupgrade\s+to\s+restore\b/i,
+                /\brestore\s+(?:all\s+)?services?\s+(?:immediately|now|today)\b/i,
+                /\bupgrade\s+now\b/i,
+                /\bget\s+(?:more\s+)?(?:storage|space)\s+(?:today|now|immediately)\b/i
             ]
         },
 
@@ -181,6 +197,8 @@ const ScamDetector = (function() {
                 /\bkindly\s+(?:click|send|provide|verify|update)/i,
                 /\byour\s+account\s+will\s+be\s+(?:block|suspend|close|delete)\b/i,  // Missing -ed
                 /\byour account has been blocked\b/i,
+                /\bpayment.?declined\b/i,
+                /\baction required\b/i,
                 /\bstorage full\b/i,
                 /\bupgrade to\s+\d/i,
                 /\bget more storage\b/i,
@@ -267,10 +285,13 @@ const ScamDetector = (function() {
             /From:\s*[\w.-]*@(?:support|admin|security|billing|service|help|info|noreply|no-reply)[\w.-]*\.(?!com|org|gov|edu|mil)/i,  // Generic sender on suspicious TLD
             /From:.*@.*\.(?:ga|ml|tk|gq|cf|pw|xyz|top|club|click|link|online|site|work)/i,  // Known spam TLDs
             /From:\s*[\w.-]*\d{5,}@(?:gmail|yahoo|outlook|hotmail)/i,  // Lots of numbers in personal email (suspicious)
+            /From:.*@.*\.us\.com/i,  // Suspicious lookalike TLD (.us.com)
         ],
         // Generic sender names that are red flags
         genericSender: [
             /From:\s*(?:support|admin|security|billing|customer service|help desk|notification|alert|warning)[^<]*@/i,
+            /From:.*payment[^<<]*@/i,  // "Payment" in sender name
+            /From:.*payment_declined[^<]*@/i,  // "Payment_Declined" in sender name
         ],
     };
 
