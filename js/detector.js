@@ -180,6 +180,13 @@ const ScamDetector = (function() {
                 /\byou\s+have\s+been\s+select\b/i,  // "you have been select" (wrong tense)
                 /\bkindly\s+(?:click|send|provide|verify|update)/i,
                 /\byour\s+account\s+will\s+be\s+(?:block|suspend|close|delete)\b/i,  // Missing -ed
+                /\byour account has been blocked\b/i,
+                /\bstorage full\b/i,
+                /\bupgrade to\s+\d/i,
+                /\bget more storage\b/i,
+                /\bemails and file syncing are currently paused\b/i,
+                /\byou have reached your.*limit\b/i,
+                /\bgb limit\b/i,
                 /\bthis\s+is\s+(?:to\s+)?inform\s+you\b/i,
                 /\bas\s+soon\s+as\s+possible\b/i,
                 /\bdo\s+the\s+needful\b/i,
@@ -312,7 +319,7 @@ const ScamDetector = (function() {
             
             // Check for suspicious TLDs in sender domain (skip if legitimate)
             if (!isLegitimateDomain) {
-                const suspiciousTLDs = ['.xyz', '.top', '.club', '.online', '.site', '.live', '.work', '.click', '.link', '.info', '.biz', '.name', '.tk', '.ml', '.ga', '.cf', '.gq', '.pw', '.ru', '.cn', '.br'];
+                const suspiciousTLDs = ['.xyz', '.top', '.club', '.online', '.site', '.live', '.work', '.click', '.link', '.info', '.biz', '.name', '.tk', '.ml', '.ga', '.cf', '.gq', '.pw', '.ru', '.cn', '.br', '.us.com', '.uk.com', '.com.com'];
                 for (const tld of suspiciousTLDs) {
                     if (senderDomain.endsWith(tld)) {
                         issues.push({
