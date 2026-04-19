@@ -66,12 +66,13 @@ nav a:hover, nav a.active {
 /* Safety Banner */
 .safety-banner {
     background: linear-gradient(135deg, #1e3a5f 0%, #1e293b 100%);
-    padding: 1.25rem 2rem;
+    padding: 1.5rem 2rem;
     text-align: center;
     border-bottom: 1px solid var(--border-color);
     transition: opacity 0.3s ease;
     position: relative;
     overflow: visible;
+    margin-top: 8px;
 }
 
 .banner-icon {
@@ -79,56 +80,66 @@ nav a:hover, nav a.active {
 }
 
 .banner-text {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #fcd34d;
     font-weight: 600;
     letter-spacing: 0.02em;
 }
 
-/* Online Safety Tips Sticker Badge */
+/* Online Safety Tips Sticker Badge - Eye-catching "stamp" design */
 .safety-sticker {
     position: absolute;
-    top: -12px;
-    left: 24px;
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    top: -14px;
+    left: 20px;
+    background: linear-gradient(145deg, #ef4444 0%, #b91c1c 100%);
     color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 0.85rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 0.9rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transform: rotate(-3deg);
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+    letter-spacing: 0.08em;
+    transform: rotate(-4deg);
+    box-shadow: 
+        0 4px 15px rgba(239, 68, 68, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        2px 3px 0 rgba(0, 0, 0, 0.2);
     z-index: 10;
     display: flex;
     align-items: center;
     gap: 0.4rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .safety-sticker::before {
-    content: "✨";
-    font-size: 1rem;
+    content: "🛡️";
+    font-size: 1.1rem;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
 }
 
-/* Main Content with Ad Space Layout */
+/* Main Content with Ad Space Layout - AdSense Ready */
 .page-wrapper {
     display: flex;
-    max-width: 1400px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 0 1rem;
     gap: 1.5rem;
+    min-height: calc(100vh - 300px);
 }
 
-/* Ad Space Placeholders */
+/* Ad Space Placeholders - Ready for AdSense */
 .ad-space {
     width: 180px;
     min-width: 160px;
+    max-width: 200px;
     flex-shrink: 0;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     padding-top: 2rem;
+    position: sticky;
+    top: 1rem;
 }
 
 .ad-space-left {
@@ -140,7 +151,7 @@ nav a:hover, nav a.active {
 }
 
 .ad-placeholder {
-    background: rgba(51, 65, 85, 0.3);
+    background: rgba(51, 65, 85, 0.2);
     border: 2px dashed var(--border-color);
     border-radius: 0.5rem;
     width: 160px;
@@ -152,11 +163,17 @@ nav a:hover, nav a.active {
     font-size: 0.85rem;
     text-align: center;
     padding: 1rem;
+    opacity: 0.6;
+}
+
+.ad-placeholder:hover {
+    opacity: 0.8;
 }
 
 main {
     flex: 1;
     max-width: 900px;
+    min-width: 0;
     margin: 2rem auto;
     padding: 0 1.5rem;
 }
@@ -193,17 +210,7 @@ main {
     padding-left: 1rem;
 }
 
-.highlight-tip {
-    background: linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(16, 185, 129, 0.15) 100%);
-    padding: 1rem 1.25rem;
-    border-radius: 0.75rem;
-    margin-top: 1rem;
-    border-left: 4px solid var(--success);
-    font-size: 0.95rem;
-    color: var(--text-primary);
-}
-
-/* Instructions numbering */
+/* Instructions numbering - larger font for readability */
 .how-to-use .instructions ol {
     padding-left: 1.5rem;
 }
@@ -211,12 +218,13 @@ main {
 .how-to-use .instructions li {
     margin-bottom: 0.75rem;
     line-height: 1.7;
+    font-size: 1rem;
 }
 
 .how-to-use .tip {
     display: block;
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     padding-left: 1.5rem;
     margin-top: 0.25rem;
 }
@@ -227,7 +235,7 @@ main {
     border-radius: 0.75rem;
     margin-top: 1rem;
     border-left: 4px solid var(--success);
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--text-primary);
 }
 
@@ -526,6 +534,13 @@ footer a:hover {
 }
 
 /* Responsive */
+@media (max-width: 1200px) {
+    .ad-space {
+        width: 160px;
+        min-width: 140px;
+    }
+}
+
 @media (max-width: 1100px) {
     .ad-space {
         display: none;
@@ -533,6 +548,26 @@ footer a:hover {
     
     .page-wrapper {
         flex-direction: column;
+        max-width: 100%;
+    }
+    
+    main {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Compact sticker on tablet */
+    .safety-sticker {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.9rem;
+        top: -12px;
+        left: 16px;
+        transform: rotate(-3deg);
+    }
+    
+    .banner-text {
+        font-size: 1rem;
     }
 }
 
@@ -559,18 +594,23 @@ footer a:hover {
     
     /* Smaller sticker on mobile */
     .safety-sticker {
-        font-size: 0.75rem;
-        padding: 0.4rem 0.75rem;
+        font-size: 0.7rem;
+        padding: 0.4rem 0.7rem;
         top: -10px;
-        left: 16px;
+        left: 12px;
+        transform: rotate(-2deg);
+    }
+    
+    .safety-sticker::before {
+        font-size: 0.9rem;
     }
     
     /* Smaller banner text on mobile */
     .banner-text {
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
     
-    /* Stack ad placeholders on mobile */
+    /* Stack ad placeholders on mobile (for future mobile ads) */
     .ad-placeholder {
         height: 100px;
         width: 100%;
