@@ -66,10 +66,12 @@ nav a:hover, nav a.active {
 /* Safety Banner */
 .safety-banner {
     background: linear-gradient(135deg, #1e3a5f 0%, #1e293b 100%);
-    padding: 1rem 2rem;
+    padding: 1.25rem 2rem;
     text-align: center;
     border-bottom: 1px solid var(--border-color);
     transition: opacity 0.3s ease;
+    position: relative;
+    overflow: visible;
 }
 
 .banner-icon {
@@ -77,13 +79,83 @@ nav a:hover, nav a.active {
 }
 
 .banner-text {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #fcd34d;
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: 0.02em;
 }
 
-/* Main Content */
+/* Online Safety Tips Sticker Badge */
+.safety-sticker {
+    position: absolute;
+    top: -12px;
+    left: 24px;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transform: rotate(-3deg);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.safety-sticker::before {
+    content: "✨";
+    font-size: 1rem;
+}
+
+/* Main Content with Ad Space Layout */
+.page-wrapper {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    gap: 1.5rem;
+}
+
+/* Ad Space Placeholders */
+.ad-space {
+    width: 180px;
+    min-width: 160px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 2rem;
+}
+
+.ad-space-left {
+    order: -1;
+}
+
+.ad-space-right {
+    order: 1;
+}
+
+.ad-placeholder {
+    background: rgba(51, 65, 85, 0.3);
+    border: 2px dashed var(--border-color);
+    border-radius: 0.5rem;
+    width: 160px;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 1rem;
+}
+
 main {
+    flex: 1;
     max-width: 900px;
     margin: 2rem auto;
     padding: 0 1.5rem;
@@ -454,6 +526,16 @@ footer a:hover {
 }
 
 /* Responsive */
+@media (max-width: 1100px) {
+    .ad-space {
+        display: none;
+    }
+    
+    .page-wrapper {
+        flex-direction: column;
+    }
+}
+
 @media (max-width: 640px) {
     header {
         padding: 1rem;
@@ -472,6 +554,25 @@ footer a:hover {
     }
     
     .button-group button {
+        width: 100%;
+    }
+    
+    /* Smaller sticker on mobile */
+    .safety-sticker {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.75rem;
+        top: -10px;
+        left: 16px;
+    }
+    
+    /* Smaller banner text on mobile */
+    .banner-text {
+        font-size: 1rem;
+    }
+    
+    /* Stack ad placeholders on mobile */
+    .ad-placeholder {
+        height: 100px;
         width: 100%;
     }
 }
